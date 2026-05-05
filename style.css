@@ -45,8 +45,8 @@
 }
 
 /* HOVER: Sfondo azzurro chiaro (Secondo colore) */
-.hover {
-  background-color: #DCE1FF; 
+.hover, tr:hover .rowCell {
+  background-color: #DCE1FF !important; 
 }
 
 /* =========================================
@@ -111,15 +111,25 @@ th.headerCell {
 /* =========================================
    CELLE CORPO TABELLA
    ========================================= */
-/* Bordi divisori azzurro chiaro (#DCE1FF) */
+/* Padding aumentato e bordo più scuro per dividere nettamente le righe */
 .rowCell {
   vertical-align: super;
-  padding-left: 5px;
-  border-bottom: 1px solid #DCE1FF; 
+  padding-top: 10px; 
+  padding-bottom: 10px; 
+  padding-left: 10px; 
+  padding-right: 5px;
+  border-bottom: 1px solid #4285F5; /* CAMBIATO: Bordo blu più scuro per separare bene le righe dei contributor */
 }
 
+/* EFFETTO ZEBRA: Sfondo leggermente azzurrato per le righe alterne */
+tr:nth-child(even) .rowCell {
+  background-color: rgba(220, 225, 255, 0.4); /* Versione trasparente di #DCE1FF */
+}
+
+/* CELLE UNITE (MERGED): es. Nome del Progetto. Restano bianche per unire visivamente il blocco */
 .rowCell.merged {
   background-color: #ffffff !important;
+  border-bottom: 1px solid #DCE1FF; /* Bordo più leggero per non tagliare a metà il nome del progetto */
 }
 
 /* =========================================
@@ -193,23 +203,25 @@ th.headerCell {
    SOTTOTOTALI E TOTALI
    ========================================= */
 /* Sottototali: Sfondo azzurro chiaro (#DCE1FF) e testo scuro per leggibilità */
-.subtotal {
+.subtotal, .subtotal .rowCell {
   font-style: italic;
   font-weight: bold;
   background-color: #DCE1FF !important;
   color: #230028 !important;
+  border-bottom: 1px solid #4285F5;
 }
 
 /* Totali: Linea divisoria blu, testo NERO (#000000) */
-.total {
+.total, .total .rowCell {
   border-top: 2px solid #0031ff !important; 
   font-weight: bold !important;
   color: #000000 !important; 
+  background-color: #ffffff !important;
 }
 
 .total.transposed {
   border-top: 0px !important;
-  background-color: #4285F5; /* Blu Google per il totale trasposto */
+  background-color: #4285F5 !important; /* Blu Google per il totale trasposto */
   color: #ffffff !important;
 }
 
