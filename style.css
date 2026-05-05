@@ -26,7 +26,7 @@
   pointer-events: none;
   font-family: 'Roboto', 'Open Sans', Helvetica, Arial, sans-serif;
   font-size: 12px;
-  z-index: 2;
+  z-index: 999; /* Aumentato per stare sopra l'header sticky */
 }
 
 .tooltipTable {
@@ -61,12 +61,17 @@
   table-layout: fixed;
 }
 
-/* HEADER: Sfondo blu acceso (#4285F5) e bordi chiari */
+/* HEADER: Sfondo blu acceso (#4285F5), bordi chiari e posizionamento fisso (Sticky) */
 th.headerCell {
   background-color: #4285F5;
   color: #ffffff;
   padding: 5px;
   border-bottom: 1px solid #DCE1FF;
+  
+  /* Proprietà aggiunte per far rimanere fissa l'intestazione */
+  position: sticky;
+  top: 0;
+  z-index: 1; /* Mantiene l'header sopra le righe del corpo tabella */
 }
 
 .headerCell.dimension {
