@@ -44,7 +44,7 @@
   display: none;
 }
 
-/* HOVER: Sfondo azzurro chiaro */
+/* HOVER RIGHE: Sfondo azzurro chiaro */
 .hover, tr:hover .rowCell {
   background-color: #DCE1FF !important; 
 }
@@ -60,17 +60,45 @@
   table-layout: fixed;
 }
 
-/* HEADER: Posizionamento fisso (Sticky) */
+/* =========================================
+   HEADER & ORDINAMENTO (SORTING)
+   ========================================= */
 th.headerCell {
   background-color: #4285F5;
   color: #ffffff;
-  padding: 10px 5px; /* Leggermente più spesso */
+  padding: 10px 5px; 
   border-bottom: 1px solid #DCE1FF;
   position: sticky;
   top: 0;
   z-index: 10; 
+  
+  /* Logica di ordinamento visivo */
+  cursor: pointer; /* Cursore a manina */
+  user-select: none; /* Evita selezione testo al doppio click */
+  transition: background-color 0.2s ease; /* Transizione fluida */
 }
 
+/* Feedback visivo quando passi il mouse sull'header */
+th.headerCell:hover {
+  background-color: #003582 !important; /* Diventa blu scuro (colore palette) */
+}
+
+/* Aggiunta delle frecce di ordinamento (se il viz supporta le classi asc/desc) */
+th.headerCell.asc::after {
+  content: ' \25B2'; /* Freccia su ▲ */
+  font-size: 0.8em;
+  margin-left: 5px;
+  color: #DCE1FF; /* Azzurro chiaro */
+}
+
+th.headerCell.desc::after {
+  content: ' \25BC'; /* Freccia giù ▼ */
+  font-size: 0.8em;
+  margin-left: 5px;
+  color: #DCE1FF; /* Azzurro chiaro */
+}
+
+/* Colori delle celle dell'header */
 .headerCell.dimension {
   background-color: #4285F5;
   border-right: 1px solid #ffffff; 
