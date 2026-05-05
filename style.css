@@ -193,6 +193,20 @@ th.headerCell {
 }
 
 /* =========================================
+   LINK (COLLEGAMENTI IPERTESTUALI)
+   ========================================= */
+.reportTable a, .rowCell a {
+  color: #0031ff; /* Blu elettrico per indicare che è cliccabile */
+  text-decoration: none; /* Rimuove la sottolineatura di base */
+  font-weight: bold;
+}
+
+.reportTable a:hover, .rowCell a:hover {
+  text-decoration: underline; /* Aggiunge sottolineatura al passaggio del mouse */
+  color: #000A78; /* Diventa blu scuro al passaggio del mouse per feedback visivo */
+}
+
+/* =========================================
    SOTTOTOTALI E TOTALI
    ========================================= */
 /* Sottototali: Sfondo azzurro chiaro (#DCE1FF) e testo scuro per leggibilità */
