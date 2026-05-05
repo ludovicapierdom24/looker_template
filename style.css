@@ -45,8 +45,8 @@
 }
 
 /* HOVER: Sfondo azzurro chiaro (Secondo colore) */
-.hover, tr:hover .rowCell {
-  background-color: #DCE1FF !important; 
+.hover {
+  background-color: #DCE1FF; 
 }
 
 /* =========================================
@@ -111,25 +111,18 @@ th.headerCell {
 /* =========================================
    CELLE CORPO TABELLA
    ========================================= */
-/* Padding aumentato e bordo più scuro per dividere nettamente le righe */
+/* Bordi divisori azzurro chiaro (#DCE1FF) e padding aumentato */
 .rowCell {
   vertical-align: super;
-  padding-top: 10px; 
-  padding-bottom: 10px; 
-  padding-left: 10px; 
+  padding-top: 14px; /* Aumentato ulteriormente per rendere la riga più spessa */
+  padding-bottom: 14px; /* Aumentato ulteriormente per rendere la riga più spessa */
+  padding-left: 10px; /* Leggermente aumentato per distanziare il testo dal bordo */
   padding-right: 5px;
-  border-bottom: 1px solid #4285F5; /* CAMBIATO: Bordo blu più scuro per separare bene le righe dei contributor */
+  border-bottom: 1px solid #DCE1FF; 
 }
 
-/* EFFETTO ZEBRA: Sfondo leggermente azzurrato per le righe alterne */
-tr:nth-child(even) .rowCell {
-  background-color: rgba(220, 225, 255, 0.4); /* Versione trasparente di #DCE1FF */
-}
-
-/* CELLE UNITE (MERGED): es. Nome del Progetto. Restano bianche per unire visivamente il blocco */
 .rowCell.merged {
   background-color: #ffffff !important;
-  border-bottom: 1px solid #DCE1FF; /* Bordo più leggero per non tagliare a metà il nome del progetto */
 }
 
 /* =========================================
@@ -203,25 +196,23 @@ tr:nth-child(even) .rowCell {
    SOTTOTOTALI E TOTALI
    ========================================= */
 /* Sottototali: Sfondo azzurro chiaro (#DCE1FF) e testo scuro per leggibilità */
-.subtotal, .subtotal .rowCell {
+.subtotal {
   font-style: italic;
   font-weight: bold;
   background-color: #DCE1FF !important;
   color: #230028 !important;
-  border-bottom: 1px solid #4285F5;
 }
 
 /* Totali: Linea divisoria blu, testo NERO (#000000) */
-.total, .total .rowCell {
+.total {
   border-top: 2px solid #0031ff !important; 
   font-weight: bold !important;
   color: #000000 !important; 
-  background-color: #ffffff !important;
 }
 
 .total.transposed {
   border-top: 0px !important;
-  background-color: #4285F5 !important; /* Blu Google per il totale trasposto */
+  background-color: #4285F5; /* Blu Google per il totale trasposto */
   color: #ffffff !important;
 }
 
