@@ -64,7 +64,7 @@
    HEADER & ORDINAMENTO (SORTING)
    ========================================= */
 th.headerCell {
-  background-color: #4285F5; /* Default background */
+  background-color: #4285F5; /* Azzurro Chiaro di Default */
   color: #ffffff;
   padding: 10px 5px; 
   border-bottom: 1px solid #DCE1FF;
@@ -73,14 +73,14 @@ th.headerCell {
   z-index: 10; 
   
   /* Logica di ordinamento visivo */
-  cursor: pointer; /* Cursore a manina */
-  user-select: none; /* Evita selezione testo al doppio click */
-  transition: filter 0.2s ease; /* Transizione fluida usando un filtro invece di background-color */
+  cursor: pointer; 
+  user-select: none; 
+  transition: filter 0.2s ease; 
 }
 
 /* Feedback visivo quando passi il mouse sull'header */
 th.headerCell:hover {
-  filter: brightness(0.8); 
+  filter: brightness(0.85); 
 }
 
 /* Aggiunta delle frecce di ordinamento */
@@ -88,68 +88,69 @@ th.headerCell.asc::after {
   content: ' \25B2'; 
   font-size: 0.8em;
   margin-left: 5px;
-  color: #DCE1FF; 
+  color: #ffffff; 
 }
 
 th.headerCell.desc::after {
   content: ' \25BC'; 
   font-size: 0.8em;
   margin-left: 5px;
-  color: #DCE1FF; 
+  color: #ffffff; 
 }
 
 /* =========================================
    COLORI DIVERSI PER GRUPPI HEADER
-   (Sales AdB, xTech, Responsible, ecc.)
+   (Scala Cromatica Verticale)
    ========================================= */
-/* Target della PRIMA riga di header (i raggruppamenti superiori) */
 
-/* 1° Blocco: Di solito vuoto o contiene l'header delle Dimensioni (Project Name, ecc.) */
+/* --- PRIMA RIGA (Super-Header Raggruppamenti) --- */
+/* 1° Blocco: Project Name, Type, etc. */
 thead tr:first-child th.headerCell:nth-child(1) { background-color: #4285F5 !important; }
-
 /* 2° Blocco: Sales AdB */
 thead tr:first-child th.headerCell:nth-child(2) { background-color: #00B9C3 !important; }
-
 /* 3° Blocco: Sales xTech */
 thead tr:first-child th.headerCell:nth-child(3) { background-color: #6405BE !important; }
-
 /* 4° Blocco: Sales Responsible */
 thead tr:first-child th.headerCell:nth-child(4) { background-color: #000A78 !important; }
-
 /* 5° Blocco: Sales Key Contributor */
 thead tr:first-child th.headerCell:nth-child(5) { background-color: #0031ff !important; }
 
-/* ----------------------------------------- */
 
-.headerCell.dimension {
-  background-color: #000A78; 
-  border-right: 1px solid #ffffff; 
-  color: #ffffff;
-}
+/* --- SECONDA RIGA (Colonne Specifiche) --- */
+/* Mappiamo i colori ai blocchi di colonne corrispondenti per creare blocchi verticali uniformi */
 
-.headerCell.measure {
-  background-color: #6405BE; 
-  border-left: 1px solid #ffffff; 
-  color: #ffffff;
-}
+/* Colonne 1-5 (Sotto Project Info) */
+thead tr:nth-child(2) th.headerCell:nth-child(-n+5) { background-color: #4285F5 !important; }
 
-.headerCell.measure.calculation {
-  background-color: #00B9C3; 
-  border-left: 1px solid #ffffff;
-  color: #ffffff;
-}
+/* Colonne 6-7 (Sotto Sales AdB) */
+thead tr:nth-child(2) th.headerCell:nth-child(n+6):nth-child(-n+7) { background-color: #00B9C3 !important; }
 
-.headerCell.pivot {
-  background-color: #0031ff; 
-  border-right: 1px solid #ffffff; 
-  color: #ffffff;
-}
+/* Colonne 8-9 (Sotto Sales xTech) */
+thead tr:nth-child(2) th.headerCell:nth-child(n+8):nth-child(-n+9) { background-color: #6405BE !important; }
 
+/* Colonne 10-12 (Sotto Sales Responsible) */
+thead tr:nth-child(2) th.headerCell:nth-child(n+10):nth-child(-n+12) { background-color: #000A78 !important; }
+
+/* Colonne 13-15 (Sotto Sales Key Contributor) */
+thead tr:nth-child(2) th.headerCell:nth-child(n+13):nth-child(-n+15) { background-color: #0031ff !important; }
+
+
+/* Rimuove i colori "forzati" da dimensioni e misure per far funzionare la logica cromatica */
+.headerCell.dimension,
+.headerCell.measure,
+.headerCell.measure.calculation,
+.headerCell.pivot,
 .headerCell.transposed.dimension, 
 .headerCell.transposed.dimension.merged {
-  background-color: #4285F5 !important;
+  background-color: transparent; /* Lascia passare il colore definito sopra */
   color: #ffffff;
 }
+
+/* Mantiene solo i bordi bianchi divisori */
+.headerCell.dimension { border-right: 1px solid #ffffff; }
+.headerCell.pivot { border-right: 1px solid #ffffff; }
+.headerCell.measure { border-left: 1px solid #ffffff; }
+.headerCell.measure.calculation { border-left: 1px solid #ffffff; }
 
 /* =========================================
    CELLE CORPO TABELLA E SPESSORE RIGHE
