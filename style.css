@@ -78,59 +78,69 @@ th.headerCell {
   transition: filter 0.2s ease; /* Transizione fluida usando un filtro invece di background-color */
 }
 
-/* Feedback visivo quando passi il mouse sull'header (Usa un filtro per scurire qualsiasi colore di sfondo) */
+/* Feedback visivo quando passi il mouse sull'header */
 th.headerCell:hover {
   filter: brightness(0.8); 
 }
 
-/* Aggiunta delle frecce di ordinamento (se il viz supporta le classi asc/desc) */
+/* Aggiunta delle frecce di ordinamento */
 th.headerCell.asc::after {
-  content: ' \25B2'; /* Freccia su ▲ */
+  content: ' \25B2'; 
   font-size: 0.8em;
   margin-left: 5px;
-  color: #DCE1FF; /* Azzurro chiaro */
+  color: #DCE1FF; 
 }
 
 th.headerCell.desc::after {
-  content: ' \25BC'; /* Freccia giù ▼ */
+  content: ' \25BC'; 
   font-size: 0.8em;
   margin-left: 5px;
-  color: #DCE1FF; /* Azzurro chiaro */
+  color: #DCE1FF; 
 }
 
-/* Colori personalizzati per le colonne dell'header (Puoi usare :nth-child() o classi specifiche generate da Looker) */
-/* Supponendo che Looker generi classi 'dimension', 'measure', ecc. */
+/* =========================================
+   COLORI DIVERSI PER GRUPPI HEADER
+   (Sales AdB, xTech, Responsible, ecc.)
+   ========================================= */
+/* Target della PRIMA riga di header (i raggruppamenti superiori) */
+
+/* 1° Blocco: Di solito vuoto o contiene l'header delle Dimensioni (Project Name, ecc.) */
+thead tr:first-child th.headerCell:nth-child(1) { background-color: #4285F5 !important; }
+
+/* 2° Blocco: Sales AdB */
+thead tr:first-child th.headerCell:nth-child(2) { background-color: #00B9C3 !important; }
+
+/* 3° Blocco: Sales xTech */
+thead tr:first-child th.headerCell:nth-child(3) { background-color: #6405BE !important; }
+
+/* 4° Blocco: Sales Responsible */
+thead tr:first-child th.headerCell:nth-child(4) { background-color: #000A78 !important; }
+
+/* 5° Blocco: Sales Key Contributor */
+thead tr:first-child th.headerCell:nth-child(5) { background-color: #0031ff !important; }
+
+/* ----------------------------------------- */
 
 .headerCell.dimension {
-  background-color: #000A78; /* Blu Notte per Dimensioni */
+  background-color: #000A78; 
   border-right: 1px solid #ffffff; 
   color: #ffffff;
 }
 
 .headerCell.measure {
-  background-color: #6405BE; /* Viola Acceso per Misure */
+  background-color: #6405BE; 
   border-left: 1px solid #ffffff; 
   color: #ffffff;
 }
 
 .headerCell.measure.calculation {
-  background-color: #00B9C3; /* Ciano per Calcoli */
+  background-color: #00B9C3; 
   border-left: 1px solid #ffffff;
   color: #ffffff;
 }
 
-/* Colori specifici per colonna usando nth-child() (Utile se l'ordine è fisso) */
-/*
-th.headerCell:nth-child(1) { background-color: #4285F5; } 
-th.headerCell:nth-child(2) { background-color: #003582; } 
-th.headerCell:nth-child(3) { background-color: #000A78; } 
-th.headerCell:nth-child(4) { background-color: #6405BE; }
-th.headerCell:nth-child(5) { background-color: #00B9C3; }
-*/
-
-
 .headerCell.pivot {
-  background-color: #0031ff; /* Blu Elettrico per Pivot */
+  background-color: #0031ff; 
   border-right: 1px solid #ffffff; 
   color: #ffffff;
 }
@@ -150,7 +160,7 @@ th.headerCell:nth-child(5) { background-color: #00B9C3; }
   padding-bottom: 14px; 
   padding-left: 10px; 
   padding-right: 5px;
-  border-bottom: 1px solid #DCE1FF; /* Mantieni il bordo */
+  border-bottom: 1px solid #DCE1FF; /* Bordo sottile di default tra contributors */
 }
 
 .rowCell.merged {
@@ -162,13 +172,18 @@ tr:nth-child(even) .rowCell {
   background-color: rgba(220, 225, 255, 0.4); 
 }
 
-/* Bordo più spesso tra progetti diversi (Simulato tramite nth-of-type se possibile, altrimenti usa classi lato JS) */
-/* Questa è un'approssimazione. Se Looker fornisce classi per raggruppamenti (es: .level-0), usale qui. */
-/* Esempio: 
-tr.group-total + tr .rowCell {
-  border-top: 2px solid #4285F5;
+/* =========================================
+   SEPARAZIONE PROGETTI (Riga più spessa)
+   ========================================= */
+/* Applica un bordo superiore più spesso alla PRIMA riga di ogni nuovo progetto (quella che contiene la cella unita a sinistra). Questo crea visivamente una linea spessa che divide i vari progetti. */
+tr:has(> .rowCell.merged) > .rowCell {
+  border-top: 3px solid #000A78 !important; /* Blu notte spesso */
 }
-*/
+
+/* Rimuove il bordo spesso se la prima riga della tabella è subito un progetto per evitare doppie linee sotto l'header */
+thead + tbody tr:first-child > .rowCell {
+  border-top: none !important;
+}
 
 /* =========================================
    LINK (COLLEGAMENTI IPERTESTUALI)
@@ -199,19 +214,19 @@ tr.group-total + tr .rowCell {
 
 .indexCell.transposed.dimension, 
 .indexCell.transposed.dimension.merged {
-  background-color: #000A78 !important; /* Allineato a .headerCell.dimension */
+  background-color: #000A78 !important; 
   color: #ffffff;
 }
 
 .indexCell.transposed.measure, 
 .indexCell.transposed.measure.merged {
-  background-color: #6405BE !important; /* Allineato a .headerCell.measure */
+  background-color: #6405BE !important; 
   color: #ffffff;
 }
 
 .indexCell.transposed.calculation, 
 .indexCell.transposed.calculation.merged {
-  background-color: #00B9C3 !important; /* Allineato a .headerCell.measure.calculation */
+  background-color: #00B9C3 !important; 
   color: #ffffff;
 }
 
