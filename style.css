@@ -26,7 +26,7 @@
   pointer-events: none;
   font-family: 'Roboto', 'Open Sans', Helvetica, Arial, sans-serif;
   font-size: 12px;
-  z-index: 999; /* Aumentato per stare sopra l'header sticky */
+  z-index: 999; 
 }
 
 .tooltipTable {
@@ -44,15 +44,14 @@
   display: none;
 }
 
-/* HOVER: Sfondo azzurro chiaro (Secondo colore) */
-.hover {
-  background-color: #DCE1FF; 
+/* HOVER RIGHE: Sfondo azzurro chiaro */
+.hover, tr:hover .rowCell {
+  background-color: #DCE1FF !important; 
 }
 
 /* =========================================
    STILE PRINCIPALE DELLA TABELLA
    ========================================= */
-/* FONT E COLORE TESTO PRINCIPALE (Viola scuro #230028) */
 .reportTable {
   font-family: 'Roboto', 'Open Sans', Helvetica, Arial, 'Noto Sans TC', 'Noto Sans SC', sans-serif;
   color: #230028; 
@@ -61,68 +60,128 @@
   table-layout: fixed;
 }
 
-/* HEADER: Sfondo blu acceso (#4285F5), bordi chiari e posizionamento fisso (Sticky) */
+/* =========================================
+   HEADER & ORDINAMENTO (SORTING)
+   ========================================= */
 th.headerCell {
-  background-color: #4285F5;
+  background-color: #4285F5; /* Default background */
   color: #ffffff;
-  padding: 5px;
+  padding: 10px 5px; 
   border-bottom: 1px solid #DCE1FF;
-  
-  /* Proprietà aggiunte per far rimanere fissa l'intestazione */
   position: sticky;
   top: 0;
-  z-index: 1; /* Mantiene l'header sopra le righe del corpo tabella */
+  z-index: 10; 
+  
+  /* Logica di ordinamento visivo */
+  cursor: pointer; /* Cursore a manina */
+  user-select: none; /* Evita selezione testo al doppio click */
+  transition: filter 0.2s ease; /* Transizione fluida usando un filtro invece di background-color */
 }
+
+/* Feedback visivo quando passi il mouse sull'header (Usa un filtro per scurire qualsiasi colore di sfondo) */
+th.headerCell:hover {
+  filter: brightness(0.8); 
+}
+
+/* Aggiunta delle frecce di ordinamento (se il viz supporta le classi asc/desc) */
+th.headerCell.asc::after {
+  content: ' \25B2'; /* Freccia su ▲ */
+  font-size: 0.8em;
+  margin-left: 5px;
+  color: #DCE1FF; /* Azzurro chiaro */
+}
+
+th.headerCell.desc::after {
+  content: ' \25BC'; /* Freccia giù ▼ */
+  font-size: 0.8em;
+  margin-left: 5px;
+  color: #DCE1FF; /* Azzurro chiaro */
+}
+
+/* Colori personalizzati per le colonne dell'header (Puoi usare :nth-child() o classi specifiche generate da Looker) */
+/* Supponendo che Looker generi classi 'dimension', 'measure', ecc. */
 
 .headerCell.dimension {
-  background-color: #4285F5;
-  border-right: 1px solid #ffffff; 
-  color: #ffffff;
-}
-
-.headerCell.pivot {
-  background-color: #4285F5;
+  background-color: #000A78; /* Blu Notte per Dimensioni */
   border-right: 1px solid #ffffff; 
   color: #ffffff;
 }
 
 .headerCell.measure {
-  background-color: #4285F5;
+  background-color: #6405BE; /* Viola Acceso per Misure */
   border-left: 1px solid #ffffff; 
   color: #ffffff;
 }
 
 .headerCell.measure.calculation {
-  background-color: #4285F5;
+  background-color: #00B9C3; /* Ciano per Calcoli */
   border-left: 1px solid #ffffff;
   color: #ffffff;
 }
 
-.headerCell.transposed.dimension {
-  background-color: #4285F5;
+/* Colori specifici per colonna usando nth-child() (Utile se l'ordine è fisso) */
+/*
+th.headerCell:nth-child(1) { background-color: #4285F5; } 
+th.headerCell:nth-child(2) { background-color: #003582; } 
+th.headerCell:nth-child(3) { background-color: #000A78; } 
+th.headerCell:nth-child(4) { background-color: #6405BE; }
+th.headerCell:nth-child(5) { background-color: #00B9C3; }
+*/
+
+
+.headerCell.pivot {
+  background-color: #0031ff; /* Blu Elettrico per Pivot */
+  border-right: 1px solid #ffffff; 
   color: #ffffff;
 }
 
+.headerCell.transposed.dimension, 
 .headerCell.transposed.dimension.merged {
   background-color: #4285F5 !important;
   color: #ffffff;
 }
 
 /* =========================================
-   CELLE CORPO TABELLA
+   CELLE CORPO TABELLA E SPESSORE RIGHE
    ========================================= */
-/* Bordi divisori azzurro chiaro (#DCE1FF) e padding aumentato */
 .rowCell {
-  vertical-align: super;
-  padding-top: 14px; /* Aumentato ulteriormente per rendere la riga più spessa */
-  padding-bottom: 14px; /* Aumentato ulteriormente per rendere la riga più spessa */
-  padding-left: 10px; /* Leggermente aumentato per distanziare il testo dal bordo */
+  vertical-align: middle; 
+  padding-top: 14px; 
+  padding-bottom: 14px; 
+  padding-left: 10px; 
   padding-right: 5px;
-  border-bottom: 1px solid #DCE1FF; 
+  border-bottom: 1px solid #DCE1FF; /* Mantieni il bordo */
 }
 
 .rowCell.merged {
   background-color: #ffffff !important;
+}
+
+/* Effetto Zebra per aiutare a leggere le righe dei contributor */
+tr:nth-child(even) .rowCell {
+  background-color: rgba(220, 225, 255, 0.4); 
+}
+
+/* Bordo più spesso tra progetti diversi (Simulato tramite nth-of-type se possibile, altrimenti usa classi lato JS) */
+/* Questa è un'approssimazione. Se Looker fornisce classi per raggruppamenti (es: .level-0), usale qui. */
+/* Esempio: 
+tr.group-total + tr .rowCell {
+  border-top: 2px solid #4285F5;
+}
+*/
+
+/* =========================================
+   LINK (COLLEGAMENTI IPERTESTUALI)
+   ========================================= */
+.reportTable a, .rowCell a {
+  color: #0031ff !important; 
+  text-decoration: none !important; 
+  font-weight: bold;
+}
+
+.reportTable a:hover, .rowCell a:hover {
+  text-decoration: underline !important; 
+  color: #000A78 !important; 
 }
 
 /* =========================================
@@ -132,87 +191,60 @@ th.headerCell {
   font-weight: bold;
 }
 
-.indexCell.transposed.pivot {
-  background-color: #DCE1FF; /* Azzurro chiaro */
+.indexCell.transposed.pivot, 
+.indexCell.transposed.pivot.merged {
+  background-color: #DCE1FF !important;
   color: #230028;
 }
 
-.indexCell.transposed.dimension {
-  background-color: #4285F5; /* Blu Google */
-  color: #ffffff;
-}
-
-.indexCell.transposed.measure {
-  background-color: #00B9C3; /* Ciano */
-  color: #ffffff;
-}
-
-.indexCell.transposed.calculation {
-  background-color: #6405BE; /* Viola acceso */
-  color: #ffffff;
-}
-
-.indexCell.transposed.pivot.merged {
-  background-color: #DCE1FF !important;
-}
-
+.indexCell.transposed.dimension, 
 .indexCell.transposed.dimension.merged {
-  background-color: #4285F5 !important;
+  background-color: #000A78 !important; /* Allineato a .headerCell.dimension */
+  color: #ffffff;
 }
 
+.indexCell.transposed.measure, 
 .indexCell.transposed.measure.merged {
-  background-color: #00B9C3 !important;
+  background-color: #6405BE !important; /* Allineato a .headerCell.measure */
+  color: #ffffff;
 }
 
+.indexCell.transposed.calculation, 
 .indexCell.transposed.calculation.merged {
-  background-color: #6405BE !important;
+  background-color: #00B9C3 !important; /* Allineato a .headerCell.measure.calculation */
+  color: #ffffff;
 }
 
 /* =========================================
-   TIPOGRAFIA, ALLINEAMENTI E CASI SPECIFICI
+   TIPOGRAFIA E ALLINEAMENTI
    ========================================= */
-.nonNumeric {
-  text-align: left;
-}
-
-.numeric {
-  text-align: right;
-}
-
-/* Puoi lasciare il rosso per i negativi, oppure usare il viola acceso per restare in palette */
-.negative {
-  color: #6405BE; 
-}
-
-.estimate {
-  color: #0031ff !important; /* Blu elettrico per staccare dal testo normale */
-}
-
-.singleIndex {
-  padding-left: 15px !important;
-}
+.nonNumeric { text-align: left; }
+.numeric { text-align: right; }
+.negative { color: #6405BE; }
+.estimate { color: #0031ff !important; }
+.singleIndex { padding-left: 15px !important; }
 
 /* =========================================
    SOTTOTOTALI E TOTALI
    ========================================= */
-/* Sottototali: Sfondo azzurro chiaro (#DCE1FF) e testo scuro per leggibilità */
-.subtotal {
+.subtotal, .subtotal .rowCell {
   font-style: italic;
   font-weight: bold;
   background-color: #DCE1FF !important;
   color: #230028 !important;
+  border-bottom: 1px solid #4285F5;
 }
 
-/* Totali: Linea divisoria blu, testo NERO (#000000) */
-.total {
+.total, .total .rowCell {
   border-top: 2px solid #0031ff !important; 
   font-weight: bold !important;
   color: #000000 !important; 
+  background-color: #ffffff !important;
 }
 
 .total.transposed {
   border-top: 0px !important;
-  background-color: #4285F5; /* Blu Google per il totale trasposto */
+  background-color: #4285F5 !important;
   color: #ffffff !important;
 }
 
