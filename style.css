@@ -168,11 +168,6 @@ thead tr:nth-child(2) th.headerCell:nth-child(n+13):nth-child(-n+15) { backgroun
   background-color: #ffffff !important;
 }
 
-/* Effetto Zebra per aiutare a leggere le righe dei contributor */
-tr:nth-child(even) .rowCell {
-  background-color: rgba(220, 225, 255, 0.4); 
-}
-
 /* =========================================
    LINK (COLLEGAMENTI IPERTESTUALI)
    ========================================= */
