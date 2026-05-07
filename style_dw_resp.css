@@ -1,0 +1,253 @@
+/* IMPORTAZIONE FONT */
+@font-face {
+  font-family: 'Noto Sans TC';
+  src: url('./fonts/noto-sans-tc-v10-latin_chinese-traditional-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Noto Sans SC';
+  src: url('./fonts/noto-sans-sc-v11-latin_chinese-simplified-regular.woff2') format('woff2');
+}
+
+/* =========================================
+   TOOLTIP E STILI DI BASE
+   ========================================= */
+#tooltip {
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  background-color: white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  font-family: 'Roboto', 'Open Sans', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  z-index: 999; 
+}
+
+.tooltipTable {
+  font-family: 'Roboto', 'Open Sans', Helvetica, Arial, sans-serif;
+  border: 0px;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.focus {
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+/* HOVER RIGHE: Sfondo azzurro chiaro */
+.hover, tr:hover .rowCell {
+  background-color: #DCE1FF !important; 
+}
+
+/* =========================================
+   STILE PRINCIPALE DELLA TABELLA
+   ========================================= */
+.reportTable {
+  font-family: 'Roboto', 'Open Sans', Helvetica, Arial, 'Noto Sans TC', 'Noto Sans SC', sans-serif;
+  color: #230028; 
+  border-collapse: collapse;
+  border-spacing: 3px;
+  table-layout: fixed;
+}
+
+/* =========================================
+   HEADER & ORDINAMENTO (SORTING)
+   ========================================= */
+th.headerCell {
+  background-color: #4285F5; /* Azzurro Chiaro di Default */
+  color: #ffffff;
+  padding: 10px 5px; 
+  border-bottom: 1px solid #DCE1FF;
+  position: sticky;
+  top: 0;
+  z-index: 10; 
+  
+  /* Logica di ordinamento visivo */
+  cursor: pointer; 
+  user-select: none; 
+  transition: filter 0.2s ease; 
+}
+
+/* Feedback visivo quando passi il mouse sull'header */
+th.headerCell:hover {
+  filter: brightness(0.85); 
+}
+
+/* Aggiunta delle frecce di ordinamento */
+th.headerCell.asc::after {
+  content: ' \25B2'; 
+  font-size: 0.8em;
+  margin-left: 5px;
+  color: #ffffff; 
+}
+
+th.headerCell.desc::after {
+  content: ' \25BC'; 
+  font-size: 0.8em;
+  margin-left: 5px;
+  color: #ffffff; 
+}
+
+/* =========================================
+   COLORI DIVERSI PER GRUPPI HEADER
+   (Scala Cromatica Verticale)
+   ========================================= */
+
+/* --- PRIMA RIGA (Super-Header Raggruppamenti) --- */
+/* 1° Blocco: DW Sales Responsible */
+thead tr:first-child th.headerCell:nth-child(1) { background-color: #4285F5 !important; }
+/* 2° Blocco: Sales AdB */
+thead tr:first-child th.headerCell:nth-child(2) { background-color: #00B9C3 !important; }
+/* 3° Blocco: Sales xTech */
+thead tr:first-child th.headerCell:nth-child(3) { background-color: #6405BE !important; }
+/* 4° Blocco: Revenues (Vuoto) */
+thead tr:first-child th.headerCell:nth-child(4) { background-color: #000A78 !important; }
+/* 5° Blocco: Eventuale extra */
+thead tr:first-child th.headerCell:nth-child(5) { background-color: #0031ff !important; }
+
+
+/* --- SECONDA RIGA (Colonne Specifiche) --- */
+/* Mappiamo i colori ai blocchi di colonne corrispondenti per creare blocchi verticali uniformi */
+
+/* Colonne 1-7 (Sotto DW Sales Responsible) */
+thead tr:nth-child(2) th.headerCell:nth-child(-n+7) { background-color: #4285F5 !important; }
+
+/* Colonne 8-9 (Sotto Sales AdB) */
+thead tr:nth-child(2) th.headerCell:nth-child(n+8):nth-child(-n+9) { background-color: #00B9C3 !important; }
+
+/* Colonne 10-11 (Sotto Sales xTech) */
+thead tr:nth-child(2) th.headerCell:nth-child(n+10):nth-child(-n+11) { background-color: #6405BE !important; }
+
+/* Colonne 12-13 (Sotto Revenues e Sum) */
+thead tr:nth-child(2) th.headerCell:nth-child(n+12):nth-child(-n+13) { background-color: #000A78 !important; }
+
+/* Colonne 14+ (Se ci sono ulteriori colonne in futuro) */
+thead tr:nth-child(2) th.headerCell:nth-child(n+14) { background-color: #0031ff !important; }
+
+
+/* Rimuove i colori "forzati" da dimensioni e misure per far funzionare la logica cromatica */
+.headerCell.dimension,
+.headerCell.measure,
+.headerCell.measure.calculation,
+.headerCell.pivot,
+.headerCell.transposed.dimension, 
+.headerCell.transposed.dimension.merged {
+  background-color: transparent; /* Lascia passare il colore definito sopra */
+  color: #ffffff;
+}
+
+/* Mantiene solo i bordi bianchi divisori */
+.headerCell.dimension { border-right: 1px solid #ffffff; }
+.headerCell.pivot { border-right: 1px solid #ffffff; }
+.headerCell.measure { border-left: 1px solid #ffffff; }
+.headerCell.measure.calculation { border-left: 1px solid #ffffff; }
+
+/* =========================================
+   CELLE CORPO TABELLA E SPESSORE RIGHE
+   ========================================= */
+.rowCell {
+  vertical-align: middle; 
+  padding-top: 14px; 
+  padding-bottom: 14px; 
+  padding-left: 10px; 
+  padding-right: 5px;
+  border-bottom: 3px solid #000A78 !important; /* Riga MOLTO spessa blu notte su TUTTE le righe */
+}
+
+.rowCell.merged {
+  background-color: #ffffff !important;
+}
+
+/* =========================================
+   LINK (COLLEGAMENTI IPERTESTUALI)
+   ========================================= */
+.reportTable a, .rowCell a {
+  color: #0031ff !important; 
+  text-decoration: none !important; 
+  font-weight: bold;
+}
+
+.reportTable a:hover, .rowCell a:hover {
+  text-decoration: underline !important; 
+  color: #000A78 !important; 
+}
+
+/* =========================================
+   COLORI PER CELLE TRASPOSTE
+   ========================================= */
+.indexCell.transposed {
+  font-weight: bold;
+}
+
+.indexCell.transposed.pivot, 
+.indexCell.transposed.pivot.merged {
+  background-color: #DCE1FF !important;
+  color: #230028;
+}
+
+.indexCell.transposed.dimension, 
+.indexCell.transposed.dimension.merged {
+  background-color: #000A78 !important; 
+  color: #ffffff;
+}
+
+.indexCell.transposed.measure, 
+.indexCell.transposed.measure.merged {
+  background-color: #6405BE !important; 
+  color: #ffffff;
+}
+
+.indexCell.transposed.calculation, 
+.indexCell.transposed.calculation.merged {
+  background-color: #00B9C3 !important; 
+  color: #ffffff;
+}
+
+/* =========================================
+   TIPOGRAFIA E ALLINEAMENTI
+   ========================================= */
+.nonNumeric { text-align: left; }
+.numeric { text-align: right; }
+.negative { color: #6405BE; }
+.estimate { color: #0031ff !important; }
+.singleIndex { padding-left: 15px !important; }
+
+/* =========================================
+   SOTTOTOTALI E TOTALI
+   ========================================= */
+.subtotal, .subtotal .rowCell {
+  font-style: italic;
+  font-weight: bold;
+  background-color: #DCE1FF !important;
+  color: #230028 !important;
+  border-bottom: 3px solid #000A78 !important; /* Allineato allo spessore delle altre righe */
+}
+
+.total, .total .rowCell {
+  border-top: 4px solid #0031ff !important; /* Bordo superiore più spesso per sovrastare la riga precedente */
+  border-bottom: 3px solid #000A78 !important;
+  font-weight: bold !important;
+  color: #000000 !important; 
+  background-color: #ffffff !important;
+}
+
+.total.transposed {
+  border-top: 0px !important;
+  background-color: #4285F5 !important;
+  color: #ffffff !important;
+}
+
+.rectElem.animated {
+  font-family: 'Roboto', 'Open Sans', Helvetica, Arial, sans-serif;
+  margin: 4px;
+}
