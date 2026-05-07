@@ -230,11 +230,12 @@ thead tr:nth-child(2) th.headerCell:nth-child(n+13):nth-child(-n+15) { backgroun
   font-weight: bold;
   background-color: #DCE1FF !important;
   color: #230028 !important;
-  border-bottom: 1px solid #4285F5;
+  border-bottom: 3px solid #000A78 !important; /* Allineato allo spessore delle altre righe */
 }
 
 .total, .total .rowCell {
-  border-top: 2px solid #0031ff !important; 
+  border-top: 4px solid #0031ff !important; /* Bordo superiore più spesso per sovrastare la riga precedente */
+  border-bottom: 3px solid #000A78 !important;
   font-weight: bold !important;
   color: #000000 !important; 
   background-color: #ffffff !important;
